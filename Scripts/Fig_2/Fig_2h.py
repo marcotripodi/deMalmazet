@@ -15,21 +15,21 @@ import pandas as pd
 
 
 #%%
-DF_SaveDir = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\All\Code\motor tuned neurons"
+DF_SaveDir = r""
 
 df_All_Gyro = pd.read_pickle(os.path.join(DF_SaveDir, "df_All_Gyro"))
 
 
 #%%
-Thres_PValue        = .05
+Thres_3alue        = .05
 Thres_PearsonCoeff  = 0.1 # .1
 Thres_ZScore        = 5
 
-# CCK
-gene = "CCK"
+# 2
+gene = "2"
 
 # Get # mice, recordings and neurons
-nNeurons_CCK = len(df_All_Gyro.loc[(df_All_Gyro["gene"] == gene)])
+nNeurons_2 = len(df_All_Gyro.loc[(df_All_Gyro["gene"] == gene)])
 
 Mouse_rec = [mouse_rec_neuron[:mouse_rec_neuron.rfind("_")] for mouse_rec_neuron in df_All_Gyro.loc[(df_All_Gyro["gene"] == gene)].index]
 
@@ -37,25 +37,25 @@ Recs = np.unique(Mouse_rec)
 
 Mice = np.unique([mouse[:mouse.find("_")] for mouse in Recs])
 
-print("Recorded %i %s x VGAT neurons in %i recordings in %i mice" % (nNeurons_CCK, gene, len(Recs), len(Mice)))
+print("Recorded %i %s x VGAT neurons in %i recordings in %i mice" % (nNeurons_2, gene, len(Recs), len(Mice)))
 
 
-MotorTunedNeurons_CCK = df_All_Gyro.loc[(df_All_Gyro["gene"] == gene) * \
+MotorTunedNeurons_2 = df_All_Gyro.loc[(df_All_Gyro["gene"] == gene) * \
                             (df_All_Gyro["ZScore_Max"] >= Thres_ZScore) * \
                             (df_All_Gyro["PearsonCoeff_absGyro"].abs() >= Thres_PearsonCoeff) * \
-                            (df_All_Gyro["PearsonCoeff_absGyro_PValue"].abs() <= Thres_PValue)
+                            (df_All_Gyro["PearsonCoeff_absGyro_3alue"].abs() <= Thres_3alue)
                             ]
      
 print("Percentage motor tuned neurons in %s x VGAT: %.02f\n" % 
       (gene,
-       len(MotorTunedNeurons_CCK) / sum(df_All_Gyro["gene"] == gene)))
+       len(MotorTunedNeurons_2) / sum(df_All_Gyro["gene"] == gene)))
 
 
-# SST
-gene = "SST"
+# 1
+gene = "1"
 
 # Get # mice, recordings and neurons
-nNeurons_CCK = len(df_All_Gyro.loc[(df_All_Gyro["gene"] == gene)])
+nNeurons_2 = len(df_All_Gyro.loc[(df_All_Gyro["gene"] == gene)])
 
 Mouse_rec = [mouse_rec_neuron[:mouse_rec_neuron.rfind("_")] for mouse_rec_neuron in df_All_Gyro.loc[(df_All_Gyro["gene"] == gene)].index]
 
@@ -63,25 +63,25 @@ Recs = np.unique(Mouse_rec)
 
 Mice = np.unique([mouse[:mouse.find("_")] for mouse in Recs])
 
-print("Recorded %i %s x VGAT neurons in %i recordings in %i mice" % (nNeurons_CCK, gene, len(Recs), len(Mice)))
+print("Recorded %i %s x VGAT neurons in %i recordings in %i mice" % (nNeurons_2, gene, len(Recs), len(Mice)))
 
 
-MotorTunedNeurons_SST = df_All_Gyro.loc[(df_All_Gyro["gene"] == gene) * \
+MotorTunedNeurons_1 = df_All_Gyro.loc[(df_All_Gyro["gene"] == gene) * \
                             (df_All_Gyro["ZScore_Max"] >= Thres_ZScore) * \
                             (df_All_Gyro["PearsonCoeff_absGyro"].abs() >= Thres_PearsonCoeff) * \
-                            (df_All_Gyro["PearsonCoeff_absGyro_PValue"].abs() <= Thres_PValue)
+                            (df_All_Gyro["PearsonCoeff_absGyro_3alue"].abs() <= Thres_3alue)
                             ]
                             
 print("Percentage motor tuned neurons in %s x VGAT: %.02f\n" % 
       (gene,
-       len(MotorTunedNeurons_SST) / sum(df_All_Gyro["gene"] == gene)))
+       len(MotorTunedNeurons_1) / sum(df_All_Gyro["gene"] == gene)))
 
 
-# PV
-gene = "PV"
+# 3
+gene = "3"
 
 # Get # mice, recordings and neurons
-nNeurons_CCK = len(df_All_Gyro.loc[(df_All_Gyro["gene"] == gene)])
+nNeurons_2 = len(df_All_Gyro.loc[(df_All_Gyro["gene"] == gene)])
 
 Mouse_rec = [mouse_rec_neuron[:mouse_rec_neuron.rfind("_")] for mouse_rec_neuron in df_All_Gyro.loc[(df_All_Gyro["gene"] == gene)].index]
 
@@ -89,23 +89,23 @@ Recs = np.unique(Mouse_rec)
 
 Mice = np.unique([mouse[:mouse.find("_")] for mouse in Recs])
 
-print("Recorded %i %s x VGAT neurons in %i recordings in %i mice" % (nNeurons_CCK, gene, len(Recs), len(Mice)))
+print("Recorded %i %s x VGAT neurons in %i recordings in %i mice" % (nNeurons_2, gene, len(Recs), len(Mice)))
 
 
-MotorTunedNeurons_PV = df_All_Gyro.loc[(df_All_Gyro["gene"] == gene) * \
+MotorTunedNeurons_3 = df_All_Gyro.loc[(df_All_Gyro["gene"] == gene) * \
                             (df_All_Gyro["ZScore_Max"] >= Thres_ZScore) * \
                             (df_All_Gyro["PearsonCoeff_absGyro"].abs() >= Thres_PearsonCoeff) * \
-                            (df_All_Gyro["PearsonCoeff_absGyro_PValue"].abs() <= Thres_PValue)
+                            (df_All_Gyro["PearsonCoeff_absGyro_3alue"].abs() <= Thres_3alue)
                             ]
 
                
-# MotorTunedNeurons[["PearsonCoeff_absGyro_PValue", "PearsonCoeff_Gyro_PValue",
+# MotorTunedNeurons[["PearsonCoeff_absGyro_3alue", "PearsonCoeff_Gyro_3alue",
 #                    "PearsonCoeff_absGyro", "PearsonCoeff_Gyro"]]
 
 
 print("Percentage motor tuned neurons in %s x VGAT: %.02f\n" % 
       (gene,
-       len(MotorTunedNeurons_PV) / sum(df_All_Gyro["gene"] == gene)))
+       len(MotorTunedNeurons_3) / sum(df_All_Gyro["gene"] == gene)))
     
 
 # df_All_Gyro.loc[(df_All_Gyro["gene"] == gene) * \
@@ -114,39 +114,39 @@ print("Percentage motor tuned neurons in %s x VGAT: %.02f\n" %
 
 #%%
 
-print("PearsonCoeff_absGyro SST: Median: %.2f, Interquartile range: [%.2f, %.2f]" % (np.percentile(MotorTunedNeurons_SST["PearsonCoeff_absGyro"], 50), 
-                                                                       np.percentile(MotorTunedNeurons_SST["PearsonCoeff_absGyro"], 25),
-                                                                       np.percentile(MotorTunedNeurons_SST["PearsonCoeff_absGyro"], 75)))
+print("PearsonCoeff_absGyro 1: Median: %.2f, Interquartile range: [%.2f, %.2f]" % (np.percentile(MotorTunedNeurons_1["PearsonCoeff_absGyro"], 50), 
+                                                                       np.percentile(MotorTunedNeurons_1["PearsonCoeff_absGyro"], 25),
+                                                                       np.percentile(MotorTunedNeurons_1["PearsonCoeff_absGyro"], 75)))
 
-print("# Motor tuned neurons SST: %i\n" % (len(MotorTunedNeurons_SST["PearsonCoeff_absGyro"])))
-
-
-print("PearsonCoeff_absGyro CCK: %.2f, Interquartile range: [%.2f, %.2f]" % (np.percentile(MotorTunedNeurons_CCK["PearsonCoeff_absGyro"], 50), 
-                                                                          np.percentile(MotorTunedNeurons_CCK["PearsonCoeff_absGyro"], 25),
-                                                                          np.percentile(MotorTunedNeurons_CCK["PearsonCoeff_absGyro"], 75)))
-
-print("# Motor tuned neurons CCK: %i\n" % (len(MotorTunedNeurons_CCK["PearsonCoeff_absGyro"])))
+print("# Motor tuned neurons 1: %i\n" % (len(MotorTunedNeurons_1["PearsonCoeff_absGyro"])))
 
 
-print("PearsonCoeff_absGyro PV: %.2f, Interquartile range: [%.2f, %.2f]" % (np.percentile(MotorTunedNeurons_PV["PearsonCoeff_absGyro"], 50), 
-                                                                          np.percentile(MotorTunedNeurons_PV["PearsonCoeff_absGyro"], 25),
-                                                                          np.percentile(MotorTunedNeurons_PV["PearsonCoeff_absGyro"], 75)))
+print("PearsonCoeff_absGyro 2: %.2f, Interquartile range: [%.2f, %.2f]" % (np.percentile(MotorTunedNeurons_2["PearsonCoeff_absGyro"], 50), 
+                                                                          np.percentile(MotorTunedNeurons_2["PearsonCoeff_absGyro"], 25),
+                                                                          np.percentile(MotorTunedNeurons_2["PearsonCoeff_absGyro"], 75)))
 
-print("# Motor tuned neurons PV: %i\n" % (len(MotorTunedNeurons_PV["PearsonCoeff_absGyro"])))
+print("# Motor tuned neurons 2: %i\n" % (len(MotorTunedNeurons_2["PearsonCoeff_absGyro"])))
+
+
+print("PearsonCoeff_absGyro 3: %.2f, Interquartile range: [%.2f, %.2f]" % (np.percentile(MotorTunedNeurons_3["PearsonCoeff_absGyro"], 50), 
+                                                                          np.percentile(MotorTunedNeurons_3["PearsonCoeff_absGyro"], 25),
+                                                                          np.percentile(MotorTunedNeurons_3["PearsonCoeff_absGyro"], 75)))
+
+print("# Motor tuned neurons 3: %i\n" % (len(MotorTunedNeurons_3["PearsonCoeff_absGyro"])))
 
 
 #%% Box plot Coeff Pearson Abs Gyro
 save_flag   = False
-save_dir    = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure3\Ver10"
+save_dir    = r""
 save_name   = "BoxPlot_CorrCoeff_absgyro.svg"
 
 
 
-Color_SST   = "#7570b3"
-Color_CCK   = "#d95f02"
-Color_PV    = "#1b9e77"
+Color_1   = "#7570b3"
+Color_2   = "#d95f02"
+Color_3    = "#1b9e77"
 
-Colors = [Color_SST, Color_CCK, Color_PV]
+Colors = [Color_1, Color_2, Color_3]
 
 
 #Box plot params
@@ -159,7 +159,7 @@ space           = .2
 
 # X and Y axes tick and label
 XLabel      = ""
-Xticklabels = ["SST\nVGAT", "CCK\nVGAT", "PV\nVGAT"]
+Xticklabels = ["1\nVGAT", "2\nVGAT", "3\nVGAT"]
 
 YLim        = [-.39, .43]
 YTicks      = [-0.25, 0, .25]
@@ -192,12 +192,12 @@ ax = plt.axes([Axis_left, Axis_bottom, Axis_width, Axis_height])
 
 # Plot box plot
 bplot = ax.boxplot( x = [
-                        MotorTunedNeurons_SST["PearsonCoeff_absGyro"], 
-                        MotorTunedNeurons_CCK["PearsonCoeff_absGyro"], 
-                        MotorTunedNeurons_PV["PearsonCoeff_absGyro"], 
-                        # MotorTunedNeurons_SST["PearsonCoeff_Gyro"], 
-                        # MotorTunedNeurons_CCK["PearsonCoeff_Gyro"], 
-                        # MotorTunedNeurons_PV["PearsonCoeff_Gyro"], 
+                        MotorTunedNeurons_1["PearsonCoeff_absGyro"], 
+                        MotorTunedNeurons_2["PearsonCoeff_absGyro"], 
+                        MotorTunedNeurons_3["PearsonCoeff_absGyro"], 
+                        # MotorTunedNeurons_1["PearsonCoeff_Gyro"], 
+                        # MotorTunedNeurons_2["PearsonCoeff_Gyro"], 
+                        # MotorTunedNeurons_3["PearsonCoeff_Gyro"], 
                        ],
                     sym = "",
                     patch_artist = True,
@@ -209,7 +209,7 @@ bplot = ax.boxplot( x = [
 
 
 # Draw Significance line
-# ax.plot(ax.get_xlim(), [PVal_thres, PVal_thres], linewidth=PVal_thres_linewidth, c=PVal_thres_Color)
+# ax.plot(ax.get_xlim(), [3al_thres, 3al_thres], linewidth=3al_thres_linewidth, c=3al_thres_Color)
 
 
 # Adjust xticks and labels

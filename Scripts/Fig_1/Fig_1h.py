@@ -70,7 +70,7 @@ print("Adter 10 days: mean: %.2fs, std: %.2f" % (np.mean(Time2Capture_Late), np.
 
 #%%
 
-Save_Dir = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\Cricket_HeadFixed\Analysis"
+Save_Dir = r""
 Save_Fig = False
 
 Save_Name = "Early_Late_10days.svg"

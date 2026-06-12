@@ -13,20 +13,14 @@ from PathGeneral_Func import CreateDestinationFolder
 
 
 #%%
-DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\PV\Data\DB"
+DB_dir  = r""
 
-DB_name = "DB_VGAT_PV_SingleRecs_Dark_Smooth"
+DB_name = ""
 
 
 with open(os.path.join(DB_dir, DB_name), 'rb') as handle:
     DB_Recs = pickle.load(handle)
     
-
-# cell = "MTCG6.2c_20230714_00"  # good
-# cell = "MTCG6.2c_20230718_14" # many responses
-# cell = "MTCG6.2c_20230718_38"
-# cell = "MTCG6.2c_20230718_45" # sparse
-# cell = "MTCG6.2c_20230804_01" #good
 
 
 #%%
@@ -48,7 +42,7 @@ neuron = 1
 
 # Set Save dir
 SaveDir = CreateDestinationFolder(
-    Destination_Path = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure3\Ver3\Example_Traces")
+    Destination_Path = r"")
 
 SaveName    = RecsOfInterest + "_withHistogram.svg"
 SaveFig     = False
@@ -61,11 +55,11 @@ Fig_Height  = 1.2
 
 Color_Gyro  = (1, 0.59, 0)
 
-Color_SST   = "#7570b3"
-Color_CCK   = "#d95f02"
-Color_PV    = "#1b9e77"
+Color_1   = "#7570b3"
+Color_2   = "#d95f02"
+Color_3    = "#1b9e77"
 
-Color_Traces    = [Color_PV]
+Color_Traces    = [Color_3]
 Trace_LineWidth = .7
 
 

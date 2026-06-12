@@ -14,13 +14,13 @@ import scipy
 
 
 #%%
-DF_Dir = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\All\Code\MB_GR"
+DF_Dir = r""
 
 df_All = pd.read_pickle(os.path.join(DF_Dir, "df_All"))
 
 
 #%% MotorTuned cells
-Thres_PValue        = .05
+Thres_Pvalue        = .05
 Thres_PearsonCoeff  = 0.1 # .1
 Thres_ZScore        = 5
 Thres_QI            = 0.3
@@ -28,75 +28,42 @@ Thres_QI            = 0.3
 
 df_MotorTuned = df_All.loc[ (df_All["Gyro_Dark"]["ZScore_Max"] >= Thres_ZScore) *\
                             (df_All["Gyro_Dark"]["PearsonCoeff_absGyro"].abs() >= Thres_PearsonCoeff) *\
-                            (df_All["Gyro_Dark"]["PearsonCoeff_absGyro_PValue"] <= Thres_PValue)
+                            (df_All["Gyro_Dark"]["PearsonCoeff_absGyro_3alue"] <= Thres_Pvalue)
                             ]
     
 df_MotorTuned_VisualResponsive = df_MotorTuned.loc[(df_MotorTuned["GR"]["QI"] >= Thres_QI) + \
                                                    (df_MotorTuned["MB"]["QI"] >= Thres_QI)
                                                    ]
     
-    
-#%% visual responsive motor tuned neurons only
-# SST
-# Max_DFoverF_SST = pd.concat([df_MotorTuned_VisualResponsive.loc["SST", ("GR","Max_DFoverF")],
-#                             df_MotorTuned_VisualResponsive.loc["SST", ("MB","Max_DFoverF")],
-#                             df_MotorTuned_VisualResponsive.loc["SST", ("MS","Max_DFoverF")]], 
-#                            axis = 1)    
-
-# Max_DFoverF_SST = np.nanmin(Max_DFoverF_SST.values, axis = 1)
-
-
-    
-# # CCK
-# Max_DFoverF_CCK = pd.concat([df_MotorTuned_VisualResponsive.loc["CCK", ("GR","Max_DFoverF")],
-#                             df_MotorTuned_VisualResponsive.loc["CCK", ("MB","Max_DFoverF")],
-#                             df_MotorTuned_VisualResponsive.loc["CCK", ("MS","Max_DFoverF")]], 
-#                            axis = 1)
-
-# Max_DFoverF_CCK = np.nanmin(Max_DFoverF_CCK.values, axis = 1)
-
-
-# # PV
-# Max_DFoverF_PV = pd.concat([df_MotorTuned_VisualResponsive.loc["PV", ("GR","Max_DFoverF")],
-#                             df_MotorTuned_VisualResponsive.loc["PV", ("MB","Max_DFoverF")],
-#                             df_MotorTuned_VisualResponsive.loc["PV", ("MS","Max_DFoverF")]], 
-#                            axis = 1)
-
-# Max_DFoverF_PV = np.nanmin(Max_DFoverF_PV.values, axis = 1)
-
-# # Remove NAN
-# Max_DFoverF_PV = Max_DFoverF_PV[~np.isnan(Max_DFoverF_PV)]
-
-
 #%% All motor tuned
-# SST
-Max_DFoverF_SST = pd.concat([df_MotorTuned.loc["SST", ("GR","Max_DFoverF")],
-                             df_MotorTuned.loc["SST", ("MB","Max_DFoverF")]], 
+# 1
+Max_DFoverF_1 = pd.concat([df_MotorTuned.loc["1", ("GR","Max_DFoverF")],
+                             df_MotorTuned.loc["1", ("MB","Max_DFoverF")]], 
                             axis = 1)    
 
-Max_DFoverF_SST = np.nanmax(Max_DFoverF_SST.values, axis = 1)
+Max_DFoverF_1 = np.nanmax(Max_DFoverF_1.values, axis = 1)
 
 
     
-# CCK
-Max_DFoverF_CCK = pd.concat([df_MotorTuned.loc["CCK", ("GR","Max_DFoverF")],
-                             df_MotorTuned.loc["CCK", ("MB","Max_DFoverF")]], 
+# 2
+Max_DFoverF_2 = pd.concat([df_MotorTuned.loc["2", ("GR","Max_DFoverF")],
+                             df_MotorTuned.loc["2", ("MB","Max_DFoverF")]], 
                             axis = 1)
 
-Max_DFoverF_CCK = np.nanmax(Max_DFoverF_CCK.values, axis = 1)
+Max_DFoverF_2 = np.nanmax(Max_DFoverF_2.values, axis = 1)
 
 
-# PV
-Max_DFoverF_PV = pd.concat([df_MotorTuned.loc["PV", ("GR","Max_DFoverF")],
-                            df_MotorTuned.loc["PV", ("MB","Max_DFoverF")]], 
+# 3
+Max_DFoverF_3 = pd.concat([df_MotorTuned.loc["3", ("GR","Max_DFoverF")],
+                            df_MotorTuned.loc["3", ("MB","Max_DFoverF")]], 
                            axis = 1)
 
 
-Max_DFoverF_PV = np.nanmax(Max_DFoverF_PV.values, axis = 1)
+Max_DFoverF_3 = np.nanmax(Max_DFoverF_3.values, axis = 1)
 
 
 # Remove NAN
-Max_DFoverF_PV = Max_DFoverF_PV[~np.isnan(Max_DFoverF_PV)]
+Max_DFoverF_3 = Max_DFoverF_3[~np.isnan(Max_DFoverF_3)]
 
 
 #%% ‘two-sided’ two-sample Kolmogorov-Smirnov test
@@ -105,39 +72,39 @@ Max_DFoverF_PV = Max_DFoverF_PV[~np.isnan(Max_DFoverF_PV)]
 # The statistic is the maximum absolute difference between the empirical distribution functions of the samples.
 
 
-Res_PV_SST = scipy.stats.ks_2samp(Max_DFoverF_PV, 
-                                  Max_DFoverF_SST, 
+Res_3_1 = scipy.stats.ks_2samp(Max_DFoverF_3, 
+                                  Max_DFoverF_1, 
                                   alternative = 'less')
 
-print("\npValue two-sample KS test 1 tail PV less than SST:", Res_PV_SST.pvalue)
+print("\nPvalue two-sample KS test 1 tail 3 less than 1:", Res_3_1.Pvalue)
 
 
-Res_PV_CCK = scipy.stats.ks_2samp(Max_DFoverF_PV, 
-                                  Max_DFoverF_CCK, 
+Res_3_2 = scipy.stats.ks_2samp(Max_DFoverF_3, 
+                                  Max_DFoverF_2, 
                                   alternative = 'two-sided')
 
-print("\npValue two-sample KS test 2 tail PV different than CCK:", Res_PV_CCK.pvalue)
+print("\nPvalue two-sample KS test 2 tail 3 different than 2:", Res_3_2.Pvalue)
 
 
-Res_SST_CCK = scipy.stats.ks_2samp(Max_DFoverF_CCK, 
-                                   Max_DFoverF_SST, 
+Res_1_2 = scipy.stats.ks_2samp(Max_DFoverF_2, 
+                                   Max_DFoverF_1, 
                                    alternative = 'less')
 
-print("\npValue two-sample KS test 1 tail CCK less than SST:", Res_SST_CCK.pvalue)
+print("\nPvalue two-sample KS test 1 tail 2 less than 1:", Res_1_2.Pvalue)
 
 
 
 #%% LogScale
 save_fig    = False
-save_dir    = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure4\Ver5\CDFs"
+save_dir    = r""
 save_name   = "CDF_MaxPosResp_MotorTuned.svg"
 
 
 Thres_QI = .3
 
 
-XMin = np.nanmin(np.hstack((Max_DFoverF_PV, Max_DFoverF_SST, Max_DFoverF_CCK)))
-XMax = np.nanmax(np.hstack((Max_DFoverF_PV, Max_DFoverF_SST, Max_DFoverF_CCK)))
+XMin = np.nanmin(np.hstack((Max_DFoverF_3, Max_DFoverF_1, Max_DFoverF_2)))
+XMax = np.nanmax(np.hstack((Max_DFoverF_3, Max_DFoverF_1, Max_DFoverF_2)))
 
 
 # Param figure
@@ -148,9 +115,9 @@ Traces_linewidth    = .8
 line_linewidth      = .6
 
 
-Color_SST   = "#7570b3"
-Color_CCK   = "#d95f02"
-Color_PV    = "#1b9e77"
+Color_1   = "#7570b3"
+Color_2   = "#d95f02"
+Color_3    = "#1b9e77"
 Color_line  = ".65"
 
 
@@ -192,26 +159,26 @@ Fig = plt.figure(figsize = [Fig_Width, Fig_Height], dpi = 300)
 ax = plt.axes([Axis_left, Axis_bottom, Axis_width, Axis_height])   
 
 
-n_SST, _, patches = ax.hist(Max_DFoverF_SST,
+n_1, _, patches = ax.hist(Max_DFoverF_1,
                         bins = Bin_Edges, 
                         density = True, 
                         cumulative = True,
                         histtype = 'step',
-                        color = Color_SST)
+                        color = Color_1)
 
-n_CCK, _, patches = ax.hist(Max_DFoverF_CCK,
+n_2, _, patches = ax.hist(Max_DFoverF_2,
                         bins = Bin_Edges, 
                         density = True, 
                         cumulative = True,
                         histtype = 'step',
-                        color = Color_CCK)
+                        color = Color_2)
 
-n_PV, _, patches = ax.hist(Max_DFoverF_PV,
+n_3, _, patches = ax.hist(Max_DFoverF_3,
                         bins = Bin_Edges, 
                         density = True, 
                         cumulative = True,
                         histtype = 'step',
-                        color = Color_PV)
+                        color = Color_3)
 
 
 
@@ -220,9 +187,9 @@ Fig = plt.figure(figsize = [Fig_Width, Fig_Height], dpi = 300)
 ax = plt.axes([Axis_left, Axis_bottom, Axis_width, Axis_height])   
 
 
-ax.plot(Bin_Centres, n_SST, linewidth = Traces_linewidth, c = Color_SST)
-ax.plot(Bin_Centres, n_CCK, linewidth = Traces_linewidth, c = Color_CCK)
-ax.plot(Bin_Centres, n_PV, linewidth = Traces_linewidth, c = Color_PV)
+ax.plot(Bin_Centres, n_1, linewidth = Traces_linewidth, c = Color_1)
+ax.plot(Bin_Centres, n_2, linewidth = Traces_linewidth, c = Color_2)
+ax.plot(Bin_Centres, n_3, linewidth = Traces_linewidth, c = Color_3)
 
 
 ax.set_xlabel(XLabel, fontsize = FontSize_AxisLabel, fontfamily = FontName)

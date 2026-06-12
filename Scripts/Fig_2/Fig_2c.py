@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 
 #%% Load data
-Data_dir = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\RNAscope_Antonio\Code\Data"
+Data_dir = r""
 Data_Name = "Overlap_DF"
 
 
@@ -26,11 +26,11 @@ df = pd.read_pickle(Data_Path)
 def GetPercentageLayer(MainVGATPop, SubVGATPop, Label):
     
     """
-    SubVGATPop = "# PV x SST x VGAT"
+    SubVGATPop = "# 3 x 1 x VGAT"
     
-    MainVGATPop = '# PV x VGAT'
+    MainVGATPop = '# 3 x VGAT'
     
-    Label = "% SST in PVxVGAT"
+    Label = "% 1 in 3xVGAT"
     """
     
     
@@ -63,26 +63,26 @@ def GetPercentageLayer(MainVGATPop, SubVGATPop, Label):
 
 
 #%%
-# CCK in SST VGAT
-SubVGATPop  = '# CCK x SST x VGAT'
-MainVGATPop = '# SST x VGAT'
-Label       = "% CCK in SST x VGAT"
-df_CCKinSST  = GetPercentageLayer(MainVGATPop, SubVGATPop, Label)
-print(df_CCKinSST)
+# 2 in 1 VGAT
+SubVGATPop  = '# 2 x 1 x VGAT'
+MainVGATPop = '# 1 x VGAT'
+Label       = "% 2 in 1 x VGAT"
+df_2in1  = GetPercentageLayer(MainVGATPop, SubVGATPop, Label)
+print(df_2in1)
 
 
-# PV in SST VGAT
-SubVGATPop  = "# PV x SST x VGAT"
-MainVGATPop = '# SST x VGAT'
-Label       = "% PV in SST x VGAT"
-df_PVinSST  = GetPercentageLayer(MainVGATPop, SubVGATPop, Label)
-print(df_PVinSST)
+# 3 in 1 VGAT
+SubVGATPop  = "# 3 x 1 x VGAT"
+MainVGATPop = '# 1 x VGAT'
+Label       = "% 3 in 1 x VGAT"
+df_3in1  = GetPercentageLayer(MainVGATPop, SubVGATPop, Label)
+print(df_3in1)
 
 
 #%% aligned vertical
 save_fig    = False
-save_dir    = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure2\Ver7"
-save_name   = "SST_VGAT_vert.svg"
+save_dir    = r""
+save_name   = "1_VGAT_vert.svg"
 
 
 # Param figure
@@ -93,9 +93,9 @@ capthick    = .4
 elinewidth  = .4
 
 
-Color_SST   = "#7570b3"
-Color_CCK   = "#d95f02"
-Color_PV    = "#1b9e77"
+Color_1   = "#7570b3"
+Color_2   = "#d95f02"
+Color_3    = "#1b9e77"
 
 
 FontSize_TickLabel = 6
@@ -106,11 +106,11 @@ FontName = "arial"
 XTicks = []
 XLabel = ""
 YTicks = [0, 25, 50]
-# YLabel = "% of $SST^{ON}$x $VGAT^{ON}$" # $\mathregular{H^{GO}}$
-YLabel = "% of $\mathregular{SST^{ON}}$x $\mathregular{VGAT^{ON}}$" # $\mathregular{H^{GO}}$
+# YLabel = "% of $1^{ON}$x $VGAT^{ON}$" # $\mathregular{H^{GO}}$
+YLabel = "% of $\mathregular{1^{ON}}$x $\mathregular{VGAT^{ON}}$" # $\mathregular{H^{GO}}$
 xlim_slack = .1
 
-# YLim = [0, np.max(df_CCKinPV["% CCK in PV x VGAT"])]
+# YLim = [0, np.max(df_2in3["% 2 in 3 x VGAT"])]
 # YLim = [0, 23]
 YLim = [0, 59]
 
@@ -141,25 +141,25 @@ fig, axs = plt.subplots(3, 1,
 
 x = [0, 1]
 
-for ax, SClayer in zip(axs, df_CCKinSST.index):
+for ax, SClayer in zip(axs, df_2in1.index):
     
     ax.bar(0,
-           df_CCKinSST.loc[SClayer, ("% CCK in SST x VGAT", "mean")],
+           df_2in1.loc[SClayer, ("% 2 in 1 x VGAT", "mean")],
            width = BarWidth,
-           color = Color_CCK,
-           yerr = df_CCKinSST.loc[SClayer, ("% CCK in SST x VGAT", "std")],
-           ecolor = Color_CCK,
+           color = Color_2,
+           yerr = df_2in1.loc[SClayer, ("% 2 in 1 x VGAT", "std")],
+           ecolor = Color_2,
            capsize = capsize,
            error_kw = {"elinewidth": elinewidth,
                        "capthick": capthick}
            )
     
     ax.bar(1,
-           df_PVinSST.loc[SClayer, ("% PV in SST x VGAT", "mean")],
+           df_3in1.loc[SClayer, ("% 3 in 1 x VGAT", "mean")],
            width = BarWidth,
-           color = Color_PV,
-           yerr = df_PVinSST.loc[SClayer, ("% PV in SST x VGAT", "std")],
-           ecolor = Color_PV,
+           color = Color_3,
+           yerr = df_3in1.loc[SClayer, ("% 3 in 1 x VGAT", "std")],
+           ecolor = Color_3,
            capsize = capsize,
            error_kw = {"elinewidth": elinewidth,
                        "capthick": capthick}
@@ -179,7 +179,7 @@ for ax, SClayer in zip(axs, df_CCKinSST.index):
     ax.set_yticks(YTicks)
     # ax.set_yticklabels(["", ""], fontsize = FontSize_TickLabel, fontfamily = FontName)
     ax.tick_params(axis='y', which='major', labelsize=FontSize_TickLabel)
-    # ax.set_ylim([0, np.max(df_CCKinPV["% CCK in PV x VGAT"])])
+    # ax.set_ylim([0, np.max(df_2in3["% 2 in 3 x VGAT"])])
     
     # Remove spines
     ax.spines[['top', 'bottom', "right"]].set_visible(False)

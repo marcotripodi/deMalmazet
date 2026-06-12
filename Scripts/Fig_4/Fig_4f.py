@@ -16,7 +16,7 @@ from PathGeneral_Func import CreateDestinationFolder
 
 
 #%% Set up paths and data files
-Data_Dir = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\GQ Dreadd validation with cfos\Data"
+Data_Dir = r""
 
 SegFiles_Dir = os.path.join(Data_Dir, 
                             "Seg_Files")
@@ -106,7 +106,7 @@ for exp_name in tqdm(Exp_Names):
     
 #%% plot    
 save_fig    = False
-save_dir    = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure6\Ver6"
+save_dir    = r""
 save_name   = "BarPlot_CFOSpos.svg"
 
 

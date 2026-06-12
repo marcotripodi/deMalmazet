@@ -16,10 +16,9 @@ from PathGeneral_Func import CreateDestinationFolder
 
 # plt.close("all")
 #%%
-DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\VGAT\Data\DB"
+DB_dir  = r""
 
-# DB_name = "DB_VGAT_Dark_Smooth_2"
-DB_name = "DB_VGAT_SingleRecs_Dark_Smooth"
+DB_name = ""
 
 
 with open(os.path.join(DB_dir, DB_name), 'rb') as handle:
@@ -39,7 +38,7 @@ for Neuron_Phasic in [25]: # [8,11,25,26,31,32,52,55,56,58,72,76,88,89,100, 101]
         
     # Set Save dir
     SaveDir = CreateDestinationFolder(
-        Destination_Path = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure1\Example_Tonic_Phasic_Gyro")
+        Destination_Path = r"")
     
     SaveName    = RecsOfInterest + "_" + str(Neuron_Tonic) + "_" + str(Neuron_Phasic) + "_withHistogram.svg"
     SaveFig     = False

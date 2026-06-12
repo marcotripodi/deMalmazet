@@ -15,39 +15,38 @@ from PathGeneral_Func import CreateDestinationFolder
 
 #%%
 
-Counts_PV   = [28.9, 55.2, 44.6]
+Counts_3   = [28.9, 55.2, 44.6]
 
-Counts_SST  = [30, 29.4, 29.2]
+Counts_1  = [30, 29.4, 29.2]
 
-Counts_CCK  = [25.8, 16.1, 16.7]
-
-
-df1 = pd.DataFrame( data = { "Counts" : Counts_SST,
-                             "Gene": "SST"})
+Counts_2  = [25.8, 16.1, 16.7]
 
 
-df2 = pd.DataFrame( data = { "Counts" : Counts_PV,
-                             "Gene": "PV"})
+df1 = pd.DataFrame( data = { "Counts" : Counts_1,
+                             "Gene": "1"})
 
 
-df3 = pd.DataFrame( data = { "Counts" : Counts_CCK,
-                             "Gene": "CCK"})
+df2 = pd.DataFrame( data = { "Counts" : Counts_3,
+                             "Gene": "3"})
+
+
+df3 = pd.DataFrame( data = { "Counts" : Counts_2,
+                             "Gene": "2"})
 
 
 
 df = pd.concat([df1, df2, df3], ignore_index = True)
 
 
-print("\nPercentage SSTonxVGATon among VGATon presynaptic to Pitx2 neurons. Mean +- STD\n%.2f +- %.2f" % (np.mean(Counts_SST), np.std(Counts_SST)))
+print("\nPercentage 1onxVGATon among VGATon presynaptic to P neurons. Mean +- STD\n%.2f +- %.2f" % (np.mean(Counts_1), np.std(Counts_1)))
 
 
 #%% Strip_Plot
-Save_Dir = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure5\Ver1\Elena"
-# Save_Dir = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Projects\Ongoing\Inhibitory neurons SC" + \
-#             r"\\RNAScope_Elena\Figures"
+Save_Dir = r""
+
 Save_Fig = False
 
-Save_Name = "StriPlot_percentage subpopulation in VGAT pitx2 Pre.svg"
+Save_Name = "StriPlot_percentage subpopulation in VGAT P Pre.svg"
 
 
 MarkerSize = 2.5
@@ -56,26 +55,26 @@ MarkerSize = 2.5
 # palette = sns.color_palette("colorblind", n_colors = 2)
 palette = sns.color_palette("colorblind", n_colors = 1)
 
-Color_SST   = [141/255, 160/255, 203/255]
-Color_PV    = [252/255, 141/255, 98/255]
-Color_CCK   = [102/255, 194/255, 165/255]
+Color_1   = [141/255, 160/255, 203/255]
+Color_3    = [252/255, 141/255, 98/255]
+Color_2   = [102/255, 194/255, 165/255]
 
 
-# Line_PValue
-Line_PValue_Color       = [.6, .6, .6]
-Line_PValue_LineWidth   = .6
-Line_PValue_LineStyle   = "--"
+# Line_3alue
+Line_3alue_Color       = [.6, .6, .6]
+Line_3alue_LineWidth   = .6
+Line_3alue_LineStyle   = "--"
 
 
 # X axis
 XTicks      = [0]
-xticklabels = ["$\mathregular{SST^{ON}}$"]
+xticklabels = ["$\mathregular{1^{ON}}$"]
 XLabel      = ""
 XLim        = [-.1, .1]
 
 
 # Y axis
-YLabel          = "% of Inhibitory input\nto $\mathregular{Pitx2^{ON}}$ neurons"
+YLabel          = "% of Inhibitory input\nto $\mathregular{P^{ON}}$ neurons"
 yticks          = [0, 15, 30]
 yticks_label    = yticks #["0", "10"]
 YLim            = [0, 32]

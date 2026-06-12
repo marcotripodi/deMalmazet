@@ -14,10 +14,8 @@ import matplotlib.pyplot as plt
 
 # plt.close("all")
 #%%
-# DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Projects\Ongoing\Inhibition\Imaging\VGAT\Data\DB"
-DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\VGAT\Data\DB"
-# DB_name = "DB_VGAT_Dark_Smooth_2"
-DB_name = "DB_VGAT_SingleRecs_Dark_Smooth"
+DB_dir  = r""
+DB_name = ""
 
 
 with open(os.path.join(DB_dir, DB_name), 'rb') as handle:
@@ -99,8 +97,8 @@ print("Phasic Neuron: Median: %.2f, Interquartile range: [%.2f, %.2f]" % (np.per
 #%% Box plot Coeff Pearson Abs Gyro
 
 save_flag   = False
-save_dir    = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure1\CorrelationTonic_Phasic"
-save_name   = "BoxPlot_CorrCoeff_Tonic_Phasic_gyro.svg"
+save_dir    = r""
+save_name   = ".svg"
 
 
 Color_Tonic         = (0, 0.68, 0.94)

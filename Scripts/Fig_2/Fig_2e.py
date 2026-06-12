@@ -13,9 +13,9 @@ from PathGeneral_Func import CreateDestinationFolder
 
 
 #%%
-DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\CCK\Data\DB"
+DB_dir  = r""
 
-DB_name = "DB_VGAT_CCK_SingleRecs_Dark_Smooth"
+DB_name = "DB_VGAT_2_SingleRecs_Dark_Smooth"
 
 
 with open(os.path.join(DB_dir, DB_name), 'rb') as handle:
@@ -30,7 +30,7 @@ neuron = 9
 
 # Set Save dir
 SaveDir = CreateDestinationFolder(
-    Destination_Path = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure3\Ver3\Example_Traces")
+    Destination_Path = r"")
 
 SaveName    = RecsOfInterest + "_withHistogram.svg"
 SaveFig     = True
@@ -43,11 +43,11 @@ Fig_Height  = 1.2
 
 Color_Gyro  = (1, 0.59, 0)
 
-Color_SST   = "#7570b3"
-Color_CCK   = "#d95f02"
-Color_PV    = "#1b9e77"
+Color_1   = "#7570b3"
+Color_2   = "#d95f02"
+Color_3    = "#1b9e77"
 
-Color_Traces    = [Color_CCK]
+Color_Traces    = [Color_2]
 Trace_LineWidth = .7
 
 

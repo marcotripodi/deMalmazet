@@ -18,11 +18,9 @@ from Prediction_Func import PlotModel3d
 
 # plt.close("all")
 #%%
-DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\VGAT\Data\DB"
+DB_dir  = r""
 
-DB_name = "DB_VGAT_Dark_Smooth_2"
-# DB_name = "DB_VGAT_SingleRecs_Dark_Smooth"
-
+DB_name = ""
 
 with open(os.path.join(DB_dir, DB_name), 'rb') as handle:
     DB_Recs = pickle.load(handle)
@@ -125,8 +123,7 @@ nClasses    = len(Classe2Plot)
 
 
 # Set Save dir
-SaveDir = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure1" + \
-            r"\Version2\Maps_PhasicGONOGO_Tonic"
+SaveDir = r""
 SaveFig = False
 
 

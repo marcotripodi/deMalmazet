@@ -14,13 +14,13 @@ import scipy
 
 
 #%%
-DF_Dir = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\All\Code\MB_GR"
+DF_Dir = r""
 
 df_All = pd.read_pickle(os.path.join(DF_Dir, "df_All"))
 
 
 #%% MotorTuned cells
-Thres_PValue        = .05
+Thres_Pvalue        = .05
 Thres_PearsonCoeff  = 0.1 # .1
 Thres_ZScore        = 5
 Thres_QI            = 0.3
@@ -28,67 +28,41 @@ Thres_QI            = 0.3
 
 df_MotorTuned = df_All.loc[ (df_All["Gyro_Dark"]["ZScore_Max"] >= Thres_ZScore) *\
                             (df_All["Gyro_Dark"]["PearsonCoeff_absGyro"].abs() >= Thres_PearsonCoeff) *\
-                            (df_All["Gyro_Dark"]["PearsonCoeff_absGyro_PValue"] <= Thres_PValue)
+                            (df_All["Gyro_Dark"]["PearsonCoeff_absGyro_3alue"] <= Thres_Pvalue)
                             ]
     
 df_MotorTuned_VisualResponsive = df_MotorTuned.loc[(df_MotorTuned["GR"]["QI"] >= Thres_QI) + \
                                                    (df_MotorTuned["MB"]["QI"] >= Thres_QI)
                                                    ]
-    
-    
-#%% visual responsive motor tuned neurons only
-# # SST
-# Min_DFoverF_SST = pd.concat([df_MotorTuned_VisualResponsive.loc["SST", ("GR","Min_DFoverF")],
-#                              df_MotorTuned_VisualResponsive.loc["SST", ("MB","Min_DFoverF")]], 
-#                            axis = 1)    
-
-# Min_DFoverF_SST = np.nanmin(Min_DFoverF_SST.values, axis = 1)
-
-
-    
-# # CCK
-# Min_DFoverF_CCK = pd.concat([df_MotorTuned_VisualResponsive.loc["CCK", ("GR","Min_DFoverF")],
-#                              df_MotorTuned_VisualResponsive.loc["CCK", ("MB","Min_DFoverF")]], 
-#                            axis = 1)
-
-# Min_DFoverF_CCK = np.nanmin(Min_DFoverF_CCK.values, axis = 1)
-
-
-# # PV
-# Min_DFoverF_PV = pd.concat([df_MotorTuned_VisualResponsive.loc["PV", ("GR","Min_DFoverF")],
-#                             df_MotorTuned_VisualResponsive.loc["PV", ("MB","Min_DFoverF")]], 
-#                            axis = 1)
-
-# Min_DFoverF_PV = np.nanmin(Min_DFoverF_PV.values, axis = 1)
 
 
 #%% All motor tuned
-# SST
-Min_DFoverF_SST = pd.concat([df_MotorTuned.loc["SST", ("GR","Min_DFoverF")],
-                             df_MotorTuned.loc["SST", ("MB","Min_DFoverF")]], 
+# 1
+Min_DFoverF_1 = pd.concat([df_MotorTuned.loc["Marker1", ("GR","Min_DFoverF")],
+                             df_MotorTuned.loc["Marker1", ("MB","Min_DFoverF")]], 
                             axis = 1)    
 
-Min_DFoverF_SST = np.nanmin(Min_DFoverF_SST.values, axis = 1)
+Min_DFoverF_1 = np.nanmin(Min_DFoverF_1.values, axis = 1)
 
 
     
-# CCK
-Min_DFoverF_CCK = pd.concat([df_MotorTuned.loc["CCK", ("GR","Min_DFoverF")],
-                             df_MotorTuned.loc["CCK", ("MB","Min_DFoverF")]], 
+# 2
+Min_DFoverF_2 = pd.concat([df_MotorTuned.loc["2", ("GR","Min_DFoverF")],
+                             df_MotorTuned.loc["2", ("MB","Min_DFoverF")]], 
                             axis = 1)
 
-Min_DFoverF_CCK = np.nanmin(Min_DFoverF_CCK.values, axis = 1)
+Min_DFoverF_2 = np.nanmin(Min_DFoverF_2.values, axis = 1)
 
 
-# PV
-Min_DFoverF_PV = pd.concat([df_MotorTuned.loc["PV", ("GR","Min_DFoverF")],
-                            df_MotorTuned.loc["PV", ("MB","Min_DFoverF")]], 
+# 3
+Min_DFoverF_3 = pd.concat([df_MotorTuned.loc["3", ("GR","Min_DFoverF")],
+                            df_MotorTuned.loc["3", ("MB","Min_DFoverF")]], 
                            axis = 1)
 
-Min_DFoverF_PV = np.nanmin(Min_DFoverF_PV.values, axis = 1)
+Min_DFoverF_3 = np.nanmin(Min_DFoverF_3.values, axis = 1)
 
 # Remove NAN
-Min_DFoverF_PV = Min_DFoverF_PV[~np.isnan(Min_DFoverF_PV)]
+Min_DFoverF_3 = Min_DFoverF_3[~np.isnan(Min_DFoverF_3)]
 
 
 #%% ‘two-sided’ two-sample Kolmogorov-Smirnov test
@@ -96,36 +70,36 @@ Min_DFoverF_PV = Min_DFoverF_PV[~np.isnan(Min_DFoverF_PV)]
 # the alternative is that they are not identical. 
 # The statistic is the maximum absolute difference between the empirical distribution functions of the samples.
 
-Res_PV_SST = scipy.stats.ks_2samp(Min_DFoverF_PV, 
-                                  Min_DFoverF_SST, 
+Res_3_1 = scipy.stats.ks_2samp(Min_DFoverF_3, 
+                                  Min_DFoverF_1, 
                                   alternative = 'less')
 
-print("\npValue two-sample KS test 1 tail PV less than SST:", Res_PV_SST.pvalue)
+print("\nPvalue two-sample KS test 1 tail 3 less than 1:", Res_3_1.Pvalue)
 
 
-Res_PV_CCK = scipy.stats.ks_2samp(Min_DFoverF_PV, 
-                                  Min_DFoverF_CCK, 
+Res_3_2 = scipy.stats.ks_2samp(Min_DFoverF_3, 
+                                  Min_DFoverF_2, 
                                   alternative = 'two-sided')
 
-print("\npValue two-sample KS test 2 tail PV different than CCK:", Res_PV_CCK.pvalue)
+print("\nPvalue two-sample KS test 2 tail 3 different than 2:", Res_3_2.Pvalue)
 
 
-Res_SST_CCK = scipy.stats.ks_2samp(Min_DFoverF_CCK, 
-                                   Min_DFoverF_SST, 
+Res_1_2 = scipy.stats.ks_2samp(Min_DFoverF_2, 
+                                   Min_DFoverF_1, 
                                    alternative = 'less')
 
-print("\npValue two-sample KS test 1 tail CCK less than SST:", Res_SST_CCK.pvalue)
+print("\nPvalue two-sample KS test 1 tail 2 less than 1:", Res_1_2.Pvalue)
 
 
 #%% LogScale
 save_fig    = False
-save_dir    = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure4\Ver5\CDFs"
-save_name   = "CDF_MaxNegResp_MotorTuned.svg"
+save_dir    = r""
+save_name   = ".svg"
 
 
 
-XMin = np.nanmin(np.hstack((Min_DFoverF_PV, Min_DFoverF_SST, Min_DFoverF_CCK)))
-XMax = np.nanmax(np.hstack((Min_DFoverF_PV, Min_DFoverF_SST, Min_DFoverF_CCK)))
+XMin = np.nanmin(np.hstack((Min_DFoverF_3, Min_DFoverF_1, Min_DFoverF_2)))
+XMax = np.nanmax(np.hstack((Min_DFoverF_3, Min_DFoverF_1, Min_DFoverF_2)))
 
 
 # Param figure
@@ -136,9 +110,9 @@ Traces_linewidth    = .8
 line_linewidth      = .6
 
 
-Color_SST   = "#7570b3"
-Color_CCK   = "#d95f02"
-Color_PV    = "#1b9e77"
+Color_1   = "#7570b3"
+Color_2   = "#d95f02"
+Color_3    = "#1b9e77"
 Color_line  = ".65"
 
 
@@ -180,26 +154,26 @@ Fig = plt.figure(figsize = [Fig_Width, Fig_Height], dpi = 300)
 ax = plt.axes([Axis_left, Axis_bottom, Axis_width, Axis_height])   
 
 
-n_SST, _, patches = ax.hist(Min_DFoverF_SST,
+n_1, _, patches = ax.hist(Min_DFoverF_1,
                         bins = Bin_Edges, 
                         density = True, 
                         cumulative = True,
                         histtype = 'step',
-                        color = Color_SST)
+                        color = Color_1)
 
-n_CCK, _, patches = ax.hist(Min_DFoverF_CCK,
+n_2, _, patches = ax.hist(Min_DFoverF_2,
                         bins = Bin_Edges, 
                         density = True, 
                         cumulative = True,
                         histtype = 'step',
-                        color = Color_CCK)
+                        color = Color_2)
 
-n_PV, _, patches = ax.hist(Min_DFoverF_PV,
+n_3, _, patches = ax.hist(Min_DFoverF_3,
                         bins = Bin_Edges, 
                         density = True, 
                         cumulative = True,
                         histtype = 'step',
-                        color = Color_PV)
+                        color = Color_3)
 
 
 
@@ -208,9 +182,9 @@ Fig = plt.figure(figsize = [Fig_Width, Fig_Height], dpi = 300)
 ax = plt.axes([Axis_left, Axis_bottom, Axis_width, Axis_height])   
 
 
-ax.plot(Bin_Centres, n_SST, linewidth = Traces_linewidth, c = Color_SST)
-ax.plot(Bin_Centres, n_CCK, linewidth = Traces_linewidth, c = Color_CCK)
-ax.plot(Bin_Centres, n_PV, linewidth = Traces_linewidth, c = Color_PV)
+ax.plot(Bin_Centres, n_1, linewidth = Traces_linewidth, c = Color_1)
+ax.plot(Bin_Centres, n_2, linewidth = Traces_linewidth, c = Color_2)
+ax.plot(Bin_Centres, n_3, linewidth = Traces_linewidth, c = Color_3)
 
 
 # Plot .5 line

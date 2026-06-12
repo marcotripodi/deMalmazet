@@ -15,9 +15,8 @@ from tqdm import tqdm
 
 
 #%%
-DF_Dir = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\All\Code\MB\MovingBarsRF"
+DF_Dir = r""
             
-# df_All = pd.read_pickle(os.path.join(DF_Dir, "df_All"))
 df_All_Intersect = pd.read_pickle(os.path.join(DF_Dir, "df_All_Intersect"))
 
 
@@ -26,7 +25,7 @@ Thres_QI            = .3
 Thres_Sp            = .05
 Thres_SI            = .1
 Thres_Resp          = .1
-Thres_PValue        = .05
+Thres_3alue        = .05
 Thres_PearsonCoeff  = 0.1 # .1
 Thres_ZScore        = 5
 
@@ -38,59 +37,59 @@ size_resample       = 100
 #%% MotorTuned cells
 df_MotorTuned = df_All_Intersect.loc[ (df_All_Intersect["Gyro_Dark"]["ZScore_Max"] >= Thres_ZScore) *\
                                      (df_All_Intersect["Gyro_Dark"]["PearsonCoeff_absGyro"].abs() >= Thres_PearsonCoeff) *\
-                                         (df_All_Intersect["Gyro_Dark"]["PearsonCoeff_absGyro_PValue"] <= Thres_PValue)
+                                         (df_All_Intersect["Gyro_Dark"]["PearsonCoeff_absGyro_3alue"] <= Thres_3alue)
                                          ]
     
-df_MotorTuned_SST = df_MotorTuned.loc["SST"]
+df_MotorTuned_1 = df_MotorTuned.loc["1"]
 
-df_MotorTuned_CCK = df_MotorTuned.loc["CCK"]
+df_MotorTuned_2 = df_MotorTuned.loc["2"]
 
-df_MotorTuned_PV = df_MotorTuned.loc["PV"]
+df_MotorTuned_3 = df_MotorTuned.loc["3"]
 
 
 #%%
-RFSizes_MotorTuned_SST = df_MotorTuned_SST["MB", "RFsize_deg"][df_MotorTuned_SST["MB", "QI"] > Thres_QI]
-# df_MotorTuned_SST.loc[slice(None), ("MB", "QI")]
+RFSizes_MotorTuned_1 = df_MotorTuned_1["MB", "RFsize_deg"][df_MotorTuned_1["MB", "QI"] > Thres_QI]
+# df_MotorTuned_1.loc[slice(None), ("MB", "QI")]
 
-RFSizes_MotorTuned_CCK = df_MotorTuned_CCK["MB", "RFsize_deg"][df_MotorTuned_CCK["MB", "QI"] > Thres_QI]
+RFSizes_MotorTuned_2 = df_MotorTuned_2["MB", "RFsize_deg"][df_MotorTuned_2["MB", "QI"] > Thres_QI]
 
-RFSizes_MotorTuned_PV = df_MotorTuned_PV["MB", "RFsize_deg"][df_MotorTuned_PV["MB", "QI"] > Thres_QI]
+RFSizes_MotorTuned_3 = df_MotorTuned_3["MB", "RFsize_deg"][df_MotorTuned_3["MB", "QI"] > Thres_QI]
 
 
 #%% Stats
 
-print("RF size SST: Median: %.2f, Interquartile range: [%.2f, %.2f]" % (np.percentile(RFSizes_MotorTuned_SST, 50), 
-                                                                       np.percentile(RFSizes_MotorTuned_SST, 25),
-                                                                       np.percentile(RFSizes_MotorTuned_SST, 75)))
+print("RF size 1: Median: %.2f, Interquartile range: [%.2f, %.2f]" % (np.percentile(RFSizes_MotorTuned_1, 50), 
+                                                                       np.percentile(RFSizes_MotorTuned_1, 25),
+                                                                       np.percentile(RFSizes_MotorTuned_1, 75)))
 
-print("# n neurons SST: %i\n" % (len(RFSizes_MotorTuned_SST)))
-
-
-print("RF size CCK: Median: %.2f, Interquartile range: [%.2f, %.2f]" % (np.percentile(RFSizes_MotorTuned_CCK, 50), 
-                                                                       np.percentile(RFSizes_MotorTuned_CCK, 25),
-                                                                       np.percentile(RFSizes_MotorTuned_CCK, 75)))
-
-print("# n neurons CCK: %i\n" % (len(RFSizes_MotorTuned_CCK)))
+print("# n neurons 1: %i\n" % (len(RFSizes_MotorTuned_1)))
 
 
-print("RF size PV: Median: %.2f, Interquartile range: [%.2f, %.2f]" % (np.percentile(RFSizes_MotorTuned_PV, 50), 
-                                                                       np.percentile(RFSizes_MotorTuned_PV, 25),
-                                                                       np.percentile(RFSizes_MotorTuned_PV, 75)))
+print("RF size 2: Median: %.2f, Interquartile range: [%.2f, %.2f]" % (np.percentile(RFSizes_MotorTuned_2, 50), 
+                                                                       np.percentile(RFSizes_MotorTuned_2, 25),
+                                                                       np.percentile(RFSizes_MotorTuned_2, 75)))
 
-print("# n neurons PV: %i\n" % (len(RFSizes_MotorTuned_PV)))
+print("# n neurons 2: %i\n" % (len(RFSizes_MotorTuned_2)))
+
+
+print("RF size 3: Median: %.2f, Interquartile range: [%.2f, %.2f]" % (np.percentile(RFSizes_MotorTuned_3, 50), 
+                                                                       np.percentile(RFSizes_MotorTuned_3, 25),
+                                                                       np.percentile(RFSizes_MotorTuned_3, 75)))
+
+print("# n neurons 3: %i\n" % (len(RFSizes_MotorTuned_3)))
 
 
 #%% Box plot Coeff Pearson Abs Gyro
 save_flag   = False
-save_dir    = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure4\Ver5\RF"
+save_dir    = r""
 save_name   = "BoxPlot_RFSizes.svg"
 
 
-Color_SST   = "#7570b3"
-Color_CCK   = "#d95f02"
-Color_PV    = "#1b9e77"
+Color_1   = "#7570b3"
+Color_2   = "#d95f02"
+Color_3    = "#1b9e77"
 
-Colors = [Color_SST, Color_CCK, Color_PV]
+Colors = [Color_1, Color_2, Color_3]
 
 
 #Box plot params
@@ -103,7 +102,7 @@ space           = .2
 
 # X and Y axes tick and label
 XLabel      = ""
-Xticklabels = ["SST\nVGAT", "CCK\nVGAT", "PV\nVGAT"]
+Xticklabels = ["1\nVGAT", "2\nVGAT", "3\nVGAT"]
 
 YLim        = [0, 31]
 YTicks      = [0, 15, 30]
@@ -136,9 +135,9 @@ ax = plt.axes([Axis_left, Axis_bottom, Axis_width, Axis_height])
 
 # Plot box plot
 bplot = ax.boxplot( x = [
-                            RFSizes_MotorTuned_SST, 
-                            RFSizes_MotorTuned_CCK, 
-                            RFSizes_MotorTuned_PV
+                            RFSizes_MotorTuned_1, 
+                            RFSizes_MotorTuned_2, 
+                            RFSizes_MotorTuned_3
                             ],
                         sym = "",
                         patch_artist = True,
@@ -150,7 +149,7 @@ bplot = ax.boxplot( x = [
 
 
 # Draw Significance line
-# ax.plot(ax.get_xlim(), [PVal_thres, PVal_thres], linewidth=PVal_thres_linewidth, c=PVal_thres_Color)
+# ax.plot(ax.get_xlim(), [3al_thres, 3al_thres], linewidth=3al_thres_linewidth, c=3al_thres_Color)
 
 
 # Adjust xticks and labels

@@ -11,11 +11,11 @@ import matplotlib.pyplot as plt
 from PathGeneral_Func import CreateDestinationFolder
 import pandas as pd
 from tqdm import tqdm
-from VisStim_Func import getSelectiveCells
+from Vi1im_Func import getSelectiveCells
 
 
 #%%
-DF_Dir = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\All\Code\MB_GR"
+DF_Dir = r""
             
 df_All = pd.read_pickle(os.path.join(DF_Dir, "df_All"))
 
@@ -25,7 +25,7 @@ Thres_QI            = .3
 Thres_Sp            = .05
 Thres_SI            = .1
 Thres_Resp          = .1
-Thres_PValue        = .05
+Thres_3alue        = .05
 Thres_PearsonCoeff  = 0.1 # .1
 Thres_ZScore        = 5
 
@@ -37,248 +37,248 @@ size_resample       = 100
 #%% MotorTuned cells
 df_MotorTuned = df_All.loc[ (df_All["Gyro_Dark"]["ZScore_Max"] >= Thres_ZScore) *\
                             (df_All["Gyro_Dark"]["PearsonCoeff_absGyro"].abs() >= Thres_PearsonCoeff) *\
-                            (df_All["Gyro_Dark"]["PearsonCoeff_absGyro_PValue"] <= Thres_PValue)
+                            (df_All["Gyro_Dark"]["PearsonCoeff_absGyro_3alue"] <= Thres_3alue)
                             ]
     
-df_MotorTuned_SST = df_MotorTuned.loc["SST"]
+df_MotorTuned_1 = df_MotorTuned.loc["Marker1"]
 
-df_MotorTuned_CCK = df_MotorTuned.loc["CCK"]
+df_MotorTuned_2 = df_MotorTuned.loc["Marker2"]
 
-df_MotorTuned_PV = df_MotorTuned.loc["PV"]
+df_MotorTuned_3 = df_MotorTuned.loc["Marker3"]
 
 
 #%% put individual populaion as function
 # 2 
 # Matrix containing proportion of OS DS noOSnoDS population per depth bin for every bootstrapping iteration
-Fraction_Resp_SST           = np.empty((num_resamples), dtype = np.float64)
-Fraction_DS_SST             = np.empty((num_resamples), dtype = np.float64)
-Fraction_OS_SST             = np.empty((num_resamples), dtype = np.float64)
-Fraction_Unselective_SST    = np.empty((num_resamples), dtype = np.float64)
+Fraction_Resp_1           = np.empty((num_resamples), dtype = np.float64)
+Fraction_DS_1             = np.empty((num_resamples), dtype = np.float64)
+Fraction_OS_1             = np.empty((num_resamples), dtype = np.float64)
+Fraction_Unselective_1    = np.empty((num_resamples), dtype = np.float64)
 
-Fraction_Resp_CCK           = np.empty((num_resamples), dtype = np.float64)
-Fraction_DS_CCK             = np.empty((num_resamples), dtype = np.float64)
-Fraction_OS_CCK             = np.empty((num_resamples), dtype = np.float64)
-Fraction_Unselective_CCK    = np.empty((num_resamples), dtype = np.float64)
+Fraction_Resp_2           = np.empty((num_resamples), dtype = np.float64)
+Fraction_DS_2             = np.empty((num_resamples), dtype = np.float64)
+Fraction_OS_2             = np.empty((num_resamples), dtype = np.float64)
+Fraction_Unselective_2    = np.empty((num_resamples), dtype = np.float64)
 
-Fraction_Resp_PV        = np.empty((num_resamples), dtype = np.float64)
-Fraction_DS_PV          = np.empty((num_resamples), dtype = np.float64)
-Fraction_OS_PV          = np.empty((num_resamples), dtype = np.float64)
-Fraction_Unselective_PV = np.empty((num_resamples), dtype = np.float64)
+Fraction_Resp_3        = np.empty((num_resamples), dtype = np.float64)
+Fraction_DS_3          = np.empty((num_resamples), dtype = np.float64)
+Fraction_OS_3          = np.empty((num_resamples), dtype = np.float64)
+Fraction_Unselective_3 = np.empty((num_resamples), dtype = np.float64)
 
 
 #
 rng = np.random.default_rng()
 for nr in tqdm(range(num_resamples)):
     
-    # SST
-    gene = "SST"
+    # 1
+    gene = "1"
     
     # Take sample with replacement of gene  neurons
-    IndexSample_MotorTuned_SST = rng.choice(df_MotorTuned_SST.index.values, 
-                                             # size = int(len(MotorTuned_SST) * size_resample_Perc),
+    IndexSample_MotorTuned_1 = rng.choice(df_MotorTuned_1.index.values, 
+                                             # size = int(len(MotorTuned_1) * size_resample_Perc),
                                              size = size_resample,
                                              replace = True)
     
-    df_sample_SST = df_MotorTuned_SST.loc[IndexSample_MotorTuned_SST]
+    df_sample_1 = df_MotorTuned_1.loc[IndexSample_MotorTuned_1]
     
     
     # Max QI of sample
-    QI_SST = pd.concat([df_sample_SST["GR"]["QI"],
-                        df_sample_SST["MB"]["QI"]], 
+    QI_1 = pd.concat([df_sample_1["GR"]["QI"],
+                        df_sample_1["MB"]["QI"]], 
                        axis = 1)
     
-    QI_SST = np.nanmax(QI_SST.values, axis = 1)
-    QI_SST = QI_SST[np.invert(np.isnan(QI_SST))]
+    QI_1 = np.nanmax(QI_1.values, axis = 1)
+    QI_1 = QI_1[np.invert(np.isnan(QI_1))]
             
 
     # DS in sample
-    DSCells_SST = getSelectiveCells(df_sample_SST, "DS", Thres_QI = Thres_QI, 
+    DSCells_1 = getSelectiveCells(df_sample_1, "DS", Thres_QI = Thres_QI, 
                           Thres_Sp = Thres_Sp, Thres_SI = Thres_SI, Thres_Resp = Thres_Resp)
             
     # OS in sample
-    OSCells_SST = getSelectiveCells(df_sample_SST, "OS", Thres_QI = Thres_QI, 
+    OSCells_1 = getSelectiveCells(df_sample_1, "OS", Thres_QI = Thres_QI, 
                           Thres_Sp = Thres_Sp, Thres_SI = Thres_SI, Thres_Resp = Thres_Resp)
     
     # Unselective
-    UnselectiveCells_SST = getSelectiveCells(df_sample_SST, "Unselective", Thres_QI = Thres_QI, 
+    UnselectiveCells_1 = getSelectiveCells(df_sample_1, "Unselective", Thres_QI = Thres_QI, 
                           Thres_Sp = Thres_Sp, Thres_SI = Thres_SI, Thres_Resp = Thres_Resp)
     
     
-    Fraction_Resp_SST[nr]           = sum(QI_SST >= Thres_QI) / len(QI_SST)
-    Fraction_DS_SST[nr]             = len(DSCells_SST) / len(QI_SST)
-    Fraction_OS_SST[nr]             = len(OSCells_SST) / len(QI_SST)
-    Fraction_Unselective_SST[nr]    = len(UnselectiveCells_SST) / len(QI_SST)
+    Fraction_Resp_1[nr]           = sum(QI_1 >= Thres_QI) / len(QI_1)
+    Fraction_DS_1[nr]             = len(DSCells_1) / len(QI_1)
+    Fraction_OS_1[nr]             = len(OSCells_1) / len(QI_1)
+    Fraction_Unselective_1[nr]    = len(UnselectiveCells_1) / len(QI_1)
     
     
-    # CCK
+    # 2
     # Take sample with replacement of gene neurons
-    IndexSample_MotorTuned_CCK = rng.choice(df_MotorTuned_CCK.index.values, 
-                                             # size = int(len(MotorTuned_CCK) * size_resample_Perc),
+    IndexSample_MotorTuned_2 = rng.choice(df_MotorTuned_2.index.values, 
+                                             # size = int(len(MotorTuned_2) * size_resample_Perc),
                                              size = size_resample,
                                              replace = True)
     
-    df_sample_CCK = df_MotorTuned_CCK.loc[IndexSample_MotorTuned_CCK]
+    df_sample_2 = df_MotorTuned_2.loc[IndexSample_MotorTuned_2]
     
     
     # Max QI of sample
-    QI_CCK = pd.concat([df_sample_CCK["GR"]["QI"],
-                        df_sample_CCK["MB"]["QI"]], 
+    QI_2 = pd.concat([df_sample_2["GR"]["QI"],
+                        df_sample_2["MB"]["QI"]], 
                        axis = 1)
     
-    QI_CCK = np.nanmax(QI_CCK.values, axis = 1)
-    QI_CCK = QI_CCK[np.invert(np.isnan(QI_CCK))]
+    QI_2 = np.nanmax(QI_2.values, axis = 1)
+    QI_2 = QI_2[np.invert(np.isnan(QI_2))]
     
 
     # DS in sample
-    DSCells_CCK = getSelectiveCells(df_sample_CCK, "DS", Thres_QI = Thres_QI, 
+    DSCells_2 = getSelectiveCells(df_sample_2, "DS", Thres_QI = Thres_QI, 
                           Thres_Sp = Thres_Sp, Thres_SI = Thres_SI, Thres_Resp = Thres_Resp)
     
     # OS in sample
-    OSCells_CCK = getSelectiveCells(df_sample_CCK, "OS", Thres_QI = Thres_QI, 
+    OSCells_2 = getSelectiveCells(df_sample_2, "OS", Thres_QI = Thres_QI, 
                           Thres_Sp = Thres_Sp, Thres_SI = Thres_SI, Thres_Resp = Thres_Resp)
     
     # Unselective
-    UnselectiveCells_CCK = getSelectiveCells(df_sample_CCK, "Unselective", Thres_QI = Thres_QI, 
+    UnselectiveCells_2 = getSelectiveCells(df_sample_2, "Unselective", Thres_QI = Thres_QI, 
                           Thres_Sp = Thres_Sp, Thres_SI = Thres_SI, Thres_Resp = Thres_Resp)
     
     
-    Fraction_Resp_CCK[nr]           = sum(QI_CCK >= Thres_QI) / len(QI_CCK)
-    Fraction_DS_CCK[nr]             = len(DSCells_CCK) / len(QI_CCK)
-    Fraction_OS_CCK[nr]             = len(OSCells_CCK) / len(QI_CCK)
-    Fraction_Unselective_CCK[nr]    = len(UnselectiveCells_CCK) / len(QI_CCK)
+    Fraction_Resp_2[nr]           = sum(QI_2 >= Thres_QI) / len(QI_2)
+    Fraction_DS_2[nr]             = len(DSCells_2) / len(QI_2)
+    Fraction_OS_2[nr]             = len(OSCells_2) / len(QI_2)
+    Fraction_Unselective_2[nr]    = len(UnselectiveCells_2) / len(QI_2)
     
     
-    # PV
+    # 3
     # Take sample with replacement of gene  neurons
-    IndexSample_MotorTuned_PV = rng.choice(df_MotorTuned_PV.index.values, 
-                                             # size = int(len(MotorTuned_PV) * size_resample_Perc),
+    IndexSample_MotorTuned_3 = rng.choice(df_MotorTuned_3.index.values, 
+                                             # size = int(len(MotorTuned_3) * size_resample_Perc),
                                              size = size_resample,
                                              replace = True)
     
-    df_sample_PV = df_MotorTuned_PV.loc[IndexSample_MotorTuned_PV]
+    df_sample_3 = df_MotorTuned_3.loc[IndexSample_MotorTuned_3]
     
     
     # Max QI of sample
-    QI_PV = pd.concat([df_sample_PV["GR"]["QI"],
-                        df_sample_PV["MB"]["QI"]], 
+    QI_3 = pd.concat([df_sample_3["GR"]["QI"],
+                        df_sample_3["MB"]["QI"]], 
                        axis = 1)
     
-    QI_PV = np.nanmax(QI_PV.values, axis = 1)
-    QI_PV = QI_PV[np.invert(np.isnan(QI_PV))]
+    QI_3 = np.nanmax(QI_3.values, axis = 1)
+    QI_3 = QI_3[np.invert(np.isnan(QI_3))]
    
      
     # DS in sample
-    DSCells_PV = getSelectiveCells(df_sample_PV, "DS", Thres_QI = Thres_QI, 
+    DSCells_3 = getSelectiveCells(df_sample_3, "DS", Thres_QI = Thres_QI, 
                           Thres_Sp = Thres_Sp, Thres_SI = Thres_SI, Thres_Resp = Thres_Resp)        
     
     # OS in sample
-    OSCells_PV = getSelectiveCells(df_sample_PV, "OS", Thres_QI = Thres_QI, 
+    OSCells_3 = getSelectiveCells(df_sample_3, "OS", Thres_QI = Thres_QI, 
                           Thres_Sp = Thres_Sp, Thres_SI = Thres_SI, Thres_Resp = Thres_Resp)
     
     # Unselective
-    UnselectiveCells_PV = getSelectiveCells(df_sample_PV, "Unselective", Thres_QI = Thres_QI, 
+    UnselectiveCells_3 = getSelectiveCells(df_sample_3, "Unselective", Thres_QI = Thres_QI, 
                           Thres_Sp = Thres_Sp, Thres_SI = Thres_SI, Thres_Resp = Thres_Resp)
     
 
-    Fraction_Resp_PV[nr]        = sum(QI_PV >= Thres_QI) / len(QI_PV)
-    Fraction_DS_PV[nr]          = len(DSCells_PV) / len(QI_PV)
-    Fraction_OS_PV[nr]          = len(OSCells_PV) / len(QI_PV)
-    Fraction_Unselective_PV[nr] = len(UnselectiveCells_PV) / len(QI_PV)
+    Fraction_Resp_3[nr]        = sum(QI_3 >= Thres_QI) / len(QI_3)
+    Fraction_DS_3[nr]          = len(DSCells_3) / len(QI_3)
+    Fraction_OS_3[nr]          = len(OSCells_3) / len(QI_3)
+    Fraction_Unselective_3[nr] = len(UnselectiveCells_3) / len(QI_3)
     
     
 #%%
-# SST
-Fraction_Resp_Mean_SST   = np.mean(Fraction_Resp_SST)
-Fraction_Resp_STD_SST    = np.std(Fraction_Resp_SST)
+# 1
+Fraction_Resp_Mean_1   = np.mean(Fraction_Resp_1)
+Fraction_Resp_STD_1    = np.std(Fraction_Resp_1)
 
-print("\nSST percentage of responding neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_Resp_Mean_SST*100, 
-                                                                            Fraction_Resp_STD_SST*100))
-
-
-Fraction_DS_Mean_SST   = np.mean(Fraction_DS_SST)
-Fraction_DS_STD_SST    = np.std(Fraction_DS_SST)
-
-print("\nSST percentage of DS neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_DS_Mean_SST*100, 
-                                                                       Fraction_DS_STD_SST*100))
+print("\n1 percentage of responding neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_Resp_Mean_1*100, 
+                                                                            Fraction_Resp_STD_1*100))
 
 
-Fraction_OS_Mean_SST   = np.mean(Fraction_OS_SST)
-Fraction_OS_STD_SST    = np.std(Fraction_OS_SST)
+Fraction_DS_Mean_1   = np.mean(Fraction_DS_1)
+Fraction_DS_STD_1    = np.std(Fraction_DS_1)
 
-print("\nSST percentage of OS neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_OS_Mean_SST*100, 
-                                                                       Fraction_OS_STD_SST*100))
-
-
-Fraction_Unselective_Mean_SST   = np.mean(Fraction_Unselective_SST)
-Fraction_Unselective_STD_SST    = np.std(Fraction_Unselective_SST)
-
-print("\nSST percentage of unselective neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_Unselective_Mean_SST*100, 
-                                                                            Fraction_Unselective_STD_SST*100))
+print("\n1 percentage of DS neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_DS_Mean_1*100, 
+                                                                       Fraction_DS_STD_1*100))
 
 
+Fraction_OS_Mean_1   = np.mean(Fraction_OS_1)
+Fraction_OS_STD_1    = np.std(Fraction_OS_1)
 
-# CCK
-Fraction_Resp_Mean_CCK   = np.mean(Fraction_Resp_CCK)
-Fraction_Resp_STD_CCK    = np.std(Fraction_Resp_CCK)
-
-print("\n\nCCK percentage of responding neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_Resp_Mean_CCK*100, 
-                                                                            Fraction_Resp_STD_CCK*100))
+print("\n1 percentage of OS neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_OS_Mean_1*100, 
+                                                                       Fraction_OS_STD_1*100))
 
 
-Fraction_DS_Mean_CCK   = np.mean(Fraction_DS_CCK)
-Fraction_DS_STD_CCK    = np.std(Fraction_DS_CCK)
+Fraction_Unselective_Mean_1   = np.mean(Fraction_Unselective_1)
+Fraction_Unselective_STD_1    = np.std(Fraction_Unselective_1)
 
-print("\nCCK percentage of DS neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_DS_Mean_CCK*100, 
-                                                                       Fraction_DS_STD_CCK*100))
-
-
-Fraction_OS_Mean_CCK   = np.mean(Fraction_OS_CCK)
-Fraction_OS_STD_CCK    = np.std(Fraction_OS_CCK)
-
-print("\nCCK percentage of OS neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_OS_Mean_CCK*100, 
-                                                                       Fraction_OS_STD_CCK*100))
+print("\n1 percentage of unselective neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_Unselective_Mean_1*100, 
+                                                                            Fraction_Unselective_STD_1*100))
 
 
-Fraction_Unselective_Mean_CCK   = np.mean(Fraction_Unselective_CCK)
-Fraction_Unselective_STD_CCK    = np.std(Fraction_Unselective_CCK)
 
-print("\nCCK percentage of unselective neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_Unselective_Mean_CCK*100, 
-                                                                            Fraction_Unselective_STD_CCK*100))
+# 2
+Fraction_Resp_Mean_2   = np.mean(Fraction_Resp_2)
+Fraction_Resp_STD_2    = np.std(Fraction_Resp_2)
 
-
-# PV
-Fraction_Resp_Mean_PV   = np.mean(Fraction_Resp_PV)
-Fraction_Resp_STD_PV    = np.std(Fraction_Resp_PV)
-
-print("\n\nPV percentage of responding neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_Resp_Mean_PV*100, 
-                                                                            Fraction_Resp_STD_PV*100))
+print("\n\n2 percentage of responding neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_Resp_Mean_2*100, 
+                                                                            Fraction_Resp_STD_2*100))
 
 
-Fraction_DS_Mean_PV   = np.mean(Fraction_DS_PV)
-Fraction_DS_STD_PV    = np.std(Fraction_DS_PV)
+Fraction_DS_Mean_2   = np.mean(Fraction_DS_2)
+Fraction_DS_STD_2    = np.std(Fraction_DS_2)
 
-print("\nPV percentage of DS neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_DS_Mean_PV*100, 
-                                                                       Fraction_DS_STD_PV*100))
-
-
-Fraction_OS_Mean_PV   = np.mean(Fraction_OS_PV)
-Fraction_OS_STD_PV    = np.std(Fraction_OS_PV)
-
-print("\nSST percentage of OS neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_OS_Mean_PV*100, 
-                                                                       Fraction_OS_STD_PV*100))
+print("\n2 percentage of DS neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_DS_Mean_2*100, 
+                                                                       Fraction_DS_STD_2*100))
 
 
-Fraction_Unselective_Mean_PV   = np.mean(Fraction_Unselective_PV)
-Fraction_Unselective_STD_PV    = np.std(Fraction_Unselective_PV)
+Fraction_OS_Mean_2   = np.mean(Fraction_OS_2)
+Fraction_OS_STD_2    = np.std(Fraction_OS_2)
 
-print("\nPV percentage of unselective neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_Unselective_Mean_PV*100, 
-                                                                            Fraction_Unselective_STD_PV*100))
+print("\n2 percentage of OS neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_OS_Mean_2*100, 
+                                                                       Fraction_OS_STD_2*100))
+
+
+Fraction_Unselective_Mean_2   = np.mean(Fraction_Unselective_2)
+Fraction_Unselective_STD_2    = np.std(Fraction_Unselective_2)
+
+print("\n2 percentage of unselective neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_Unselective_Mean_2*100, 
+                                                                            Fraction_Unselective_STD_2*100))
+
+
+# 3
+Fraction_Resp_Mean_3   = np.mean(Fraction_Resp_3)
+Fraction_Resp_STD_3    = np.std(Fraction_Resp_3)
+
+print("\n\n3 percentage of responding neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_Resp_Mean_3*100, 
+                                                                            Fraction_Resp_STD_3*100))
+
+
+Fraction_DS_Mean_3   = np.mean(Fraction_DS_3)
+Fraction_DS_STD_3    = np.std(Fraction_DS_3)
+
+print("\n3 percentage of DS neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_DS_Mean_3*100, 
+                                                                       Fraction_DS_STD_3*100))
+
+
+Fraction_OS_Mean_3   = np.mean(Fraction_OS_3)
+Fraction_OS_STD_3    = np.std(Fraction_OS_3)
+
+print("\n1 percentage of OS neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_OS_Mean_3*100, 
+                                                                       Fraction_OS_STD_3*100))
+
+
+Fraction_Unselective_Mean_3   = np.mean(Fraction_Unselective_3)
+Fraction_Unselective_STD_3    = np.std(Fraction_Unselective_3)
+
+print("\n3 percentage of unselective neurons (mean +- std):\n%.0f +- %.0f" % (Fraction_Unselective_Mean_3*100, 
+                                                                            Fraction_Unselective_STD_3*100))
 
 
 #%% 
 save_fig    = False
-save_dir    = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure4\Ver5\BarPlot"
-save_name   = "BarPlot_MotorTuned_WithErrorBars_Resp_unselective_Selective.svg"
+save_dir    = r""
+save_name   = ".svg"
 
 
 # Param figure
@@ -288,9 +288,9 @@ Space_Bars_accrossGene  = 1
 Xticklable_angle        = 15
 
 
-Color_SST   = "#7570b3"
-Color_CCK   = "#d95f02"
-Color_PV    = "#1b9e77"
+Color_1   = "#7570b3"
+Color_2   = "#d95f02"
+Color_3    = "#1b9e77"
 Color_line  = ".65"
 
 
@@ -344,52 +344,52 @@ ax = plt.axes([Axis_left, Axis_bottom, Axis_width, Axis_height])
 
 
 plt.bar(Ticks[:4], 
-        [Fraction_Resp_Mean_SST,
-         Fraction_DS_Mean_SST,
-         Fraction_OS_Mean_SST,
-         Fraction_Unselective_Mean_SST],
-        color = Color_SST,
+        [Fraction_Resp_Mean_1,
+         Fraction_DS_Mean_1,
+         Fraction_OS_Mean_1,
+         Fraction_Unselective_Mean_1],
+        color = Color_1,
         width = BarWidths,
-        yerr = [Fraction_Resp_STD_SST/2,
-                 Fraction_DS_STD_SST/2,
-                 Fraction_OS_STD_SST/2,
-                 Fraction_Unselective_STD_SST/2],
-        ecolor = Color_SST,
+        yerr = [Fraction_Resp_STD_1/2,
+                 Fraction_DS_STD_1/2,
+                 Fraction_OS_STD_1/2,
+                 Fraction_Unselective_STD_1/2],
+        ecolor = Color_1,
         capsize = capsize,
         error_kw = {"elinewidth": elinewidth,
                     "capthick": capthick})
 
 
 plt.bar(Ticks[4:8], 
-        [Fraction_Resp_Mean_CCK,
-         Fraction_DS_Mean_CCK,
-         Fraction_OS_Mean_CCK,
-         Fraction_Unselective_Mean_CCK],
-        color = Color_CCK,
+        [Fraction_Resp_Mean_2,
+         Fraction_DS_Mean_2,
+         Fraction_OS_Mean_2,
+         Fraction_Unselective_Mean_2],
+        color = Color_2,
         width = BarWidths,
-        yerr = [Fraction_Resp_STD_CCK/2,
-                 Fraction_DS_STD_CCK/2,
-                 Fraction_OS_STD_CCK/2,
-                 Fraction_Unselective_STD_CCK/2],
-        ecolor = Color_CCK,
+        yerr = [Fraction_Resp_STD_2/2,
+                 Fraction_DS_STD_2/2,
+                 Fraction_OS_STD_2/2,
+                 Fraction_Unselective_STD_2/2],
+        ecolor = Color_2,
         capsize = capsize,
         error_kw = {"elinewidth": elinewidth,
                     "capthick": capthick})
 
 
-# PV
+# 3
 plt.bar(Ticks[8:12], 
-        [Fraction_Resp_Mean_PV,
-         Fraction_DS_Mean_PV,
-         Fraction_OS_Mean_PV,
-         Fraction_Unselective_Mean_PV],
-        color = Color_PV,
+        [Fraction_Resp_Mean_3,
+         Fraction_DS_Mean_3,
+         Fraction_OS_Mean_3,
+         Fraction_Unselective_Mean_3],
+        color = Color_3,
         width = BarWidths,
-        yerr = [Fraction_Resp_STD_PV/2,
-                 Fraction_DS_STD_PV/2,
-                 Fraction_OS_STD_PV/2,
-                 Fraction_Unselective_STD_PV/2],
-        ecolor = Color_PV,
+        yerr = [Fraction_Resp_STD_3/2,
+                 Fraction_DS_STD_3/2,
+                 Fraction_OS_STD_3/2,
+                 Fraction_Unselective_STD_3/2],
+        ecolor = Color_3,
         capsize = capsize,
         error_kw = {"elinewidth": elinewidth,
                     "capthick": capthick})

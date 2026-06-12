@@ -15,9 +15,9 @@ from PathGeneral_Func import CreateDestinationFolder
 
 
 #%%
-DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\SST\Data\DB"
+DB_dir  = r""
 
-DB_name = "DB_VGAT_SST_SingleRecs_Dark_Smooth"
+DB_name = "DB_VGAT_1_SingleRecs_Dark_Smooth"
 
 
 with open(os.path.join(DB_dir, DB_name), 'rb') as handle:
@@ -30,7 +30,7 @@ RecsOfInterest = 'MTBZ5.3a_20230906'
 
 # Set Save dir
 SaveDir = CreateDestinationFolder(
-    Destination_Path = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure3\Ver3\Example_Traces")
+    Destination_Path = r"")
 
 SaveName    = RecsOfInterest + "_withHistogram.svg"
 SaveFig     = False
@@ -41,10 +41,10 @@ Frames2Plot = [2000, 12000]
 Fig_Width   = 2.6
 Fig_Height  = 1.2
 
-Color_SST   = "#7570b3"
+Color_1   = "#7570b3"
 Color_Gyro  = (1, 0.59, 0)
 
-Color_Traces = [Color_SST]
+Color_Traces = [Color_1]
 Trace_LineWidth = .7
 
 
@@ -89,7 +89,7 @@ BinSize         = .05
 rwidth          = 1
 alpha           = .6
 density_flag    = True
-Color_Hist      = Color_SST
+Color_Hist      = Color_1
 
 
 # X axis

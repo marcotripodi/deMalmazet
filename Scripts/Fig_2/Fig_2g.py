@@ -14,34 +14,33 @@ import scipy
 
 
 #%% Load DB
-DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Work\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\All\Data\DB_Baseline_Dark_Gyro"
+DB_dir  = r""
 
-# SST
-# DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\SST\Data\DB"
-DB_name = "DB_VGAT_SST_SingleRecs_Dark_Smooth"
-
-
-with open(os.path.join(DB_dir, DB_name), 'rb') as handle:
-    DB_Recs_SST = pickle.load(handle)
-    
-    
-# CCK
-# DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\CCK\Data\DB"
-DB_name = "DB_VGAT_CCK_SingleRecs_Dark_Smooth"
+# 1
+DB_name = "DB_VGAT_1_SingleRecs_Dark_Smooth"
 
 
 with open(os.path.join(DB_dir, DB_name), 'rb') as handle:
-    DB_Recs_CCK = pickle.load(handle)
+    DB_Recs_1 = pickle.load(handle)
     
-
-
-# PV
-# DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\PV\Data\DB"
-DB_name = "DB_VGAT_PV_SingleRecs_Dark_Smooth"
+    
+# 2
+# DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\2\Data\DB"
+DB_name = "DB_VGAT_2_SingleRecs_Dark_Smooth"
 
 
 with open(os.path.join(DB_dir, DB_name), 'rb') as handle:
-    DB_Recs_PV = pickle.load(handle)
+    DB_Recs_2 = pickle.load(handle)
+    
+
+
+# 3
+# DB_dir  = r"O:\OneDrive - MRC Laboratory of Molecular Biology\Projects\Ongoing\Inhibition\Experiments\Completed\Imaging\3\Data\DB"
+DB_name = "DB_VGAT_3_SingleRecs_Dark_Smooth"
+
+
+with open(os.path.join(DB_dir, DB_name), 'rb') as handle:
+    DB_Recs_3 = pickle.load(handle)
     
     
 
@@ -49,16 +48,16 @@ with open(os.path.join(DB_dir, DB_name), 'rb') as handle:
 Thres_ZScore = 5
 
 
-# SST
-Ratio_Active_Inactiv_SST = np.empty(0)
-for rec in DB_Recs_SST:
+# 1
+Ratio_Active_Inactiv_1 = np.empty(0)
+for rec in DB_Recs_1:
     
     # Select responding neurons
-    Responding_Neurons = np.flatnonzero(DB_Recs_SST[rec]["ZScore_Max"] >= Thres_ZScore)
+    Responding_Neurons = np.flatnonzero(DB_Recs_1[rec]["ZScore_Max"] >= Thres_ZScore)
     
     
     # Get DF traces
-    X = DB_Recs_SST[rec]["DFoverF"][Responding_Neurons, :].T    
+    X = DB_Recs_1[rec]["DFoverF"][Responding_Neurons, :].T    
     
     
     # Get middle of traces range♠
@@ -71,20 +70,20 @@ for rec in DB_Recs_SST:
     
     
     # Compute ratio time spent active on inactive
-    Ratio_Active_Inactiv_SST = np.append(Ratio_Active_Inactiv_SST, 
+    Ratio_Active_Inactiv_1 = np.append(Ratio_Active_Inactiv_1, 
                                       np.sum(TimePoints_Neurons_Active, axis = 0) / np.sum(TimePoints_Neurons_Inactive, axis = 0))
     
 
-# CCK
-Ratio_Active_Inactiv_CCK = np.empty(0)
-for rec in DB_Recs_CCK:
+# 2
+Ratio_Active_Inactiv_2 = np.empty(0)
+for rec in DB_Recs_2:
     
     # Select responding neurons
-    Responding_Neurons = np.flatnonzero(DB_Recs_CCK[rec]["ZScore_Max"] >= Thres_ZScore)
+    Responding_Neurons = np.flatnonzero(DB_Recs_2[rec]["ZScore_Max"] >= Thres_ZScore)
     
     
     # Get DF traces
-    X = DB_Recs_CCK[rec]["DFoverF"][Responding_Neurons, :].T    
+    X = DB_Recs_2[rec]["DFoverF"][Responding_Neurons, :].T    
     
     
     # Get middle of traces range
@@ -97,20 +96,20 @@ for rec in DB_Recs_CCK:
     
     
     # Compute ratio time spent active on inactive
-    Ratio_Active_Inactiv_CCK = np.append(Ratio_Active_Inactiv_CCK, 
+    Ratio_Active_Inactiv_2 = np.append(Ratio_Active_Inactiv_2, 
                                       np.sum(TimePoints_Neurons_Active, axis = 0) / np.sum(TimePoints_Neurons_Inactive, axis = 0))
     
 
-# PV
-Ratio_Active_Inactiv_PV = np.empty(0)
-for rec in DB_Recs_PV:
+# 3
+Ratio_Active_Inactiv_3 = np.empty(0)
+for rec in DB_Recs_3:
     
     # Select responding neurons
-    Responding_Neurons = np.flatnonzero(DB_Recs_PV[rec]["ZScore_Max"] >= Thres_ZScore)
+    Responding_Neurons = np.flatnonzero(DB_Recs_3[rec]["ZScore_Max"] >= Thres_ZScore)
     
     
     # Get DF traces
-    X = DB_Recs_PV[rec]["DFoverF"][Responding_Neurons, :].T    
+    X = DB_Recs_3[rec]["DFoverF"][Responding_Neurons, :].T    
     
     
     # Get middle of traces range
@@ -123,7 +122,7 @@ for rec in DB_Recs_PV:
     
     
     # Compute ratio time spent active on inactive
-    Ratio_Active_Inactiv_PV = np.append(Ratio_Active_Inactiv_PV, 
+    Ratio_Active_Inactiv_3 = np.append(Ratio_Active_Inactiv_3, 
                                       np.sum(TimePoints_Neurons_Active, axis = 0) / np.sum(TimePoints_Neurons_Inactive, axis = 0))
     
     
@@ -132,35 +131,35 @@ for rec in DB_Recs_PV:
 # the alternative is that they are not identical. 
 # The statistic is the maximum absolute difference between the empirical distribution functions of the samples.
 
-Res_PV_SST = scipy.stats.ks_2samp(Ratio_Active_Inactiv_PV, 
-                                  Ratio_Active_Inactiv_SST, 
+Res_3_1 = scipy.stats.ks_2samp(Ratio_Active_Inactiv_3, 
+                                  Ratio_Active_Inactiv_1, 
                                   alternative = 'two-sided')
 
-Res_PV_SST.pvalue
+Res_3_1.pvalue
 
 
-Res_PV_CCK = scipy.stats.ks_2samp(Ratio_Active_Inactiv_PV, 
-                                  Ratio_Active_Inactiv_CCK, 
+Res_3_2 = scipy.stats.ks_2samp(Ratio_Active_Inactiv_3, 
+                                  Ratio_Active_Inactiv_2, 
                                   alternative = 'two-sided')
 
-Res_PV_CCK.pvalue
+Res_3_2.pvalue
 
 
-Res_SST_CCK = scipy.stats.ks_2samp(Ratio_Active_Inactiv_SST, 
-                                   Ratio_Active_Inactiv_CCK, 
+Res_1_2 = scipy.stats.ks_2samp(Ratio_Active_Inactiv_1, 
+                                   Ratio_Active_Inactiv_2, 
                                    alternative = 'two-sided')
 
-Res_SST_CCK.pvalue
+Res_1_2.pvalue
 
 
-print("pValue two-sample KS test SST - CCK:", Res_SST_CCK.pvalue)
-print("pValue two-sample KS test PV - CCK:", Res_PV_CCK.pvalue)
-print("pValue two-sample KS test SST - PV:", Res_PV_SST.pvalue)
+print("pvalue two-sample KS test 1 - 2:", Res_1_2.pvalue)
+print("pvalue two-sample KS test 3 - 2:", Res_3_2.pvalue)
+print("pvalue two-sample KS test 1 - 3:", Res_3_1.pvalue)
 
 
 #%% LogScale
 save_fig    = False
-save_dir    = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure3\Ver5\Histogram_Ratios"
+save_dir    = r""
 save_name   = "CDF_ratios_Logs_Tonic_Phasic_All.svg"
 
 
@@ -175,9 +174,9 @@ Traces_linewidth    = .8
 line_linewidth      = .6
 
 
-Color_SST   = "#7570b3"
-Color_CCK   = "#d95f02"
-Color_PV    = "#1b9e77"
+Color_1   = "#7570b3"
+Color_2   = "#d95f02"
+Color_3    = "#1b9e77"
 Color_line  = ".65"
 
 
@@ -208,8 +207,6 @@ Axis_LineWidth  = .5
 
 
 Bins_num = 30
-# Bins = np.geomspace(Ratio_Active_Inactive.min(), Ratio_Active_Inactive.max(), num = Bins_num)
-# Bins = np.geomspace(0.0018, 8.71, num = Bins_num)
 Bin_Edges = np.geomspace(0.001, 10, num = Bins_num)
 
 Bin_Centres = (Bin_Edges[:-1] + Bin_Edges[1:])/2
@@ -221,26 +218,26 @@ Fig = plt.figure(figsize = [Fig_Width, Fig_Height], dpi = 300)#, visible = False
 ax = plt.axes([Axis_left, Axis_bottom, Axis_width, Axis_height])   
 
 
-n_SST, _, patches = ax.hist(Ratio_Active_Inactiv_SST,
+n_1, _, patches = ax.hist(Ratio_Active_Inactiv_1,
                         bins = Bin_Edges, 
                         density = True, 
                         cumulative = True,
                         histtype = 'step',
-                        color = Color_SST)
+                        color = Color_1)
 
-n_CCK, _, patches = ax.hist(Ratio_Active_Inactiv_CCK,
+n_2, _, patches = ax.hist(Ratio_Active_Inactiv_2,
                         bins = Bin_Edges, 
                         density = True, 
                         cumulative = True,
                         histtype = 'step',
-                        color = Color_CCK)
+                        color = Color_2)
 
-n_PV, _, patches = ax.hist(Ratio_Active_Inactiv_PV,
+n_3, _, patches = ax.hist(Ratio_Active_Inactiv_3,
                         bins = Bin_Edges, 
                         density = True, 
                         cumulative = True,
                         histtype = 'step',
-                        color = Color_PV)
+                        color = Color_3)
 
 
 
@@ -249,9 +246,9 @@ Fig = plt.figure(figsize = [Fig_Width, Fig_Height], dpi = 300)
 ax = plt.axes([Axis_left, Axis_bottom, Axis_width, Axis_height])   
 
 
-ax.plot(Bin_Centres, n_SST, linewidth = Traces_linewidth, c = Color_SST)
-ax.plot(Bin_Centres, n_CCK, linewidth = Traces_linewidth, c = Color_CCK)
-ax.plot(Bin_Centres, n_PV, linewidth = Traces_linewidth, c = Color_PV)
+ax.plot(Bin_Centres, n_1, linewidth = Traces_linewidth, c = Color_1)
+ax.plot(Bin_Centres, n_2, linewidth = Traces_linewidth, c = Color_2)
+ax.plot(Bin_Centres, n_3, linewidth = Traces_linewidth, c = Color_3)
 
 
 # Plot .5 line

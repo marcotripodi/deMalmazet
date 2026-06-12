@@ -17,10 +17,10 @@ from Hits_Func import GetHistContrast_SingleMouse
 
 #%% Load Data
 # All mice
-Hits_Save_Dir = r"W:\Private_Lab\Daniel\MovingSpotArena\VGAT-Cre x Sst-Flpo\SingleDot_LargeExpression"
+Hits_Save_Dir = r""
 
 
-Hits_Save_Name = "HitTimes_SST_SingleDot"
+Hits_Save_Name = "HitTimes_SingleDot"
 
 
 # Load hit counts
@@ -140,7 +140,7 @@ Days2Use_int = np.sort(Days2Use_int)
 
 # Save
 Fig_SaveFlag = False
-Fig_SaveDir = r"O:\OneDrive - MRC Laboratory of Molecular Biology\General - VGAT Paper\Figures\Paper\Figure6\Ver6\Perf"
+Fig_SaveDir = r""
 
 # Fig_SaveName = "Peformance_over_days_All.svg"
 # Fig_SaveName = "Peformance_over_days_100.svg"
